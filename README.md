@@ -14,7 +14,8 @@ I hereby grant permission to use this mod in any mod pack without the need to re
 
 
 ## REMIND
-This is a special version of Draconic Evolution for my modpack. Compared to the original version, the following changes have been made:  
+This is a special version of Draconic Evolution for my modpack.Posted here to comply with the original brandon3055's license requirements.
+Compared to the original version, the following changes have been made:  
 
 1. Adjusted the damage of the Chaos Guardian and the invincibility duration during the release of certain abilities.  
 2. Changed the logic of the Chaos Crystal shield.  
