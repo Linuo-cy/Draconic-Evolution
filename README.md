@@ -11,3 +11,11 @@ Draconic Evolution adds powerful new tools, Items, weapons and Armor. The premis
 ## License / Use in Modpacks
 This mod is licensed under the [**Don't Be a Jerk License**](https://github.com/Draconic-Inc/Draconic-Evolution/blob/HEAD/LICENSE.md) created by CoFH.
 I hereby grant permission to use this mod in any mod pack without the need to request permission from myself the owner (brandon3055).
+
+This is a special version of Draconic Evolution for my modpack. Compared to the original version, the following changes have been made:  
+
+1. Adjusted the damage of the Chaos Guardian and the invincibility duration during the release of certain abilities.  
+2. Changed the logic of the Chaos Crystal shield.  
+3. Disabled the generation of overworld_draconium_ore.  
+4. Added some configs to toggle the modifications mentioned in point 1.  
+5. Hard-coded changes in the configs regarding the slot size of equipment modules and the effects of certain models.
