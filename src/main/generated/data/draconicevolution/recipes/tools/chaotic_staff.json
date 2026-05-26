@@ -1,0 +1,43 @@
+{
+  "type": "draconicevolution:fusion_crafting",
+  "catalyst": {
+    "item": "draconicevolution:chaotic_core"
+  },
+  "ingredients": [
+    {
+      "item": "draconicevolution:medium_chaos_frag"
+    },
+    {
+      "item": "draconicevolution:chaotic_pickaxe"
+    },
+    {
+      "item": "draconicevolution:medium_chaos_frag"
+    },
+    {
+      "item": "draconicevolution:medium_chaos_frag"
+    },
+    {
+      "item": "draconicevolution:chaotic_sword"
+    },
+    {
+      "item": "draconicevolution:chaotic_shovel"
+    },
+    {
+      "item": "draconicevolution:medium_chaos_frag"
+    },
+    {
+      "item": "draconicevolution:chaotic_energy_core"
+    },
+    {
+      "item": "draconicevolution:medium_chaos_frag"
+    },
+    {
+      "item": "draconicevolution:medium_chaos_frag"
+    }
+  ],
+  "result": {
+    "item": "draconicevolution:chaotic_staff"
+  },
+  "tier": "CHAOTIC",
+  "total_energy": 1024000000
+}

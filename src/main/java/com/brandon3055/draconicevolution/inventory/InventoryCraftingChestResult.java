@@ -1,0 +1,123 @@
+package com.brandon3055.draconicevolution.inventory;
+
+import com.brandon3055.draconicevolution.blocks.tileentity.chest.TileDraconiumChest;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ResultContainer;
+import net.minecraft.world.item.ItemStack;
+
+/**
+ * Created by Brandon on 29/10/2014.
+ */
+public class InventoryCraftingChestResult extends ResultContainer {
+    private TileDraconiumChest tile;
+
+    public InventoryCraftingChestResult(TileDraconiumChest tile) {
+        this.tile = tile;
+    }
+
+    /**
+     * Returns the number of slots in the inventory.
+     */
+    @Override
+    public int getContainerSize() {
+        return 1;
+    }
+
+    /**
+     * Returns the stack in slot i
+     */
+    @Override
+    public ItemStack getItem(int par1) {
+        return ItemStack.EMPTY;//tile.getStackInCraftingSlot(0);// this.stackResult[0];
+    }
+
+    /**
+     * Returns the name of the inventory.
+     */
+    public String getInvName() {
+        return "";
+    }
+
+    /**
+     * If this returns false, the inventory name will be used as an unlocalized
+     * name, and translated into the player's language. Otherwise it will be
+     * used directly.
+     */
+    public boolean isInvNameLocalized() {
+        return false;
+    }
+
+    /**
+     * Removes from an inventory slot (first arg) up to a specified number
+     * (second arg) of items and returns them in a new stack.
+     */
+    @Override
+    public ItemStack removeItem(int par1, int par2) {
+//        ItemStack stack = tile.getStackInCraftingSlot(0);
+//        if (!stack.isEmpty()) {
+//            tile.setInventoryCraftingSlotContents(0, ItemStack.EMPTY);
+//            return stack;
+//        }
+//        else {
+            return ItemStack.EMPTY;
+//        }
+    }
+
+    /**
+     * When some containers are closed they call this on each slot, then drop
+     * whatever it returns as an ItemEntity - like when you close a workbench
+     * GUI.
+     */
+    @Override
+    public ItemStack removeItemNoUpdate(int par1) {
+        return ItemStack.EMPTY;
+    }
+
+    /**
+     * Sets the given item stack to the specified slot in the inventory (can be
+     * crafting or armor sections).
+     */
+    @Override
+    public void setItem(int par1, ItemStack par2ItemStack) {
+//        tile.setInventoryCraftingSlotContents(0, par2ItemStack);
+    }
+
+    /**
+     * Returns the maximum stack size for a inventory slot. Seems to always be
+     * 64, possibly will be extended. *Isn't this more of a set than a get?*
+     */
+    @Override
+    public int getMaxStackSize() {
+        return 64;
+    }
+
+    /**
+     * Called when an the contents of an Inventory change, usually
+     */
+    @Override
+    public void setChanged() {
+    }
+
+    /**
+     * Do not make give this method the name canInteractWith because it clashes
+     * with Container
+     */
+    @Override
+    public boolean stillValid(Player par1EntityPlayer) {
+        return true;
+    }
+
+    public void openChest() {
+    }
+
+    public void closeChest() {
+    }
+
+    /**
+     * Returns true if automation is allowed to insert the given stack (ignoring
+     * stack size) into the given slot.
+     */
+    public boolean isStackValidForSlot(int par1, ItemStack par2ItemStack) {
+        return true;
+    }
+}

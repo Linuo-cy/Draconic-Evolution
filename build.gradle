@@ -4,100 +4,101 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'signing'
-    id 'net.neoforged.gradle.userdev' version '7.0.165'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'net.neoforged.gradle' version '[6.0.18,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
     withSourcesJar()
 }
 
 group = "com.brandon3055.draconicevolution"
-base {
-    archivesName = 'Draconic-Evolution'
-}
+archivesBaseName = "Draconic-Evolution"
 
 sourceSets.main.resources.srcDirs += "src/main/generated"
 
 mod_version = "${mod_version}." + (System.getenv("BUILD_NUMBER") ?: "9999")
 version = "${mc_version}-${mod_version}"
-println "Starting build of ${base.archivesName.get()}, Version: ${mod_version}"
-println "Using Neoforge: ${neo_version}, for Minecraft: ${mc_version}"
+println "Starting build of ${archivesBaseName}, Version: ${mod_version}"
+println "Using Forge: ${neo_version}, for Minecraft: ${mc_version}"
 
 minecraft {
-    accessTransformers.file file("src/main/resources/META-INF/accesstransformer.cfg")
-}
-
-runs {
-    client {
-        workingDirectory file('run')
-//         mods { draconicevolution { source sourceSets.main } }
-    }
-    server {
-        workingDirectory file('run')
-//         mods { draconicevolution { source sourceSets.main } }
-    }
-    data {
-        workingDirectory file('run')
-//        programArguments.addAll '--mod', 'draconicevolution', '--all', '--output', file("src/main/generated"), '--existing', file("src/main/resources")
-        arguments.addAll '--mod', 'draconicevolution', '--all', '--output', file("src/main/generated").absolutePath, '--existing', file("src/main/resources").absolutePath
-
-//         mods { draconicevolution { source sourceSets.main } }
+    mappings channel: 'official', version: mc_version
+    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+    runs {
+        client {
+            workingDirectory file('run')
+            mods { draconicevolution { source sourceSets.main } }
+        }
+        server {
+            workingDirectory file('run')
+            mods { draconicevolution { source sourceSets.main } }
+        }
+        data {
+            workingDirectory file('run')
+            args '--mod', 'draconicevolution', '--all', '--output', file("src/main/generated"), '--existing', file("src/main/resources")
+            mods { draconicevolution { source sourceSets.main } }
+        }
     }
 }
 
+mixin {
+    add(sourceSets.main, "mixins.draconicevolution.refmap.json")
+}
 
 configurations {
+    annotationProcessor.extendsFrom minecraft
 }
 
 repositories {
-//    mavenLocal()
-    maven { url = "https://chickenbones.net/maven" }
-    maven { url = "https://maven.blamejared.com/" }
+    // 国内镜像（优先使用）
+    maven { url = 'https://maven.aliyun.com/repository/public' }
+    maven { url = 'https://maven.aliyun.com/repository/forge' }
+    maven { url = 'https://maven.aliyun.com/repository/central' }
+
+    // 原有仓库（保留作为备选）
+    mavenLocal()
+    maven { url = "https://maven.covers1624.net/" }
     maven { url = "https://dvs1.progwml6.com/files/maven" }
     maven { url = "https://maven.cil.li/" }
     maven { url = "https://maven.theillusivec4.top/" }
-    maven { 
+    maven {
         url = "https://maven.squiddev.cc/"
         content { includeGroup("cc.tweaked") }
     }
     maven { url = "https://maven.blamejared.com/" }
+//    maven { url = "https://modmaven.dev/" }
+    maven { url = "https://maven.shadowsoffire.dev/releases"
+        content { includeGroup ("dev.shadowsoffire") }
+    }
+    mavenCentral()
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:${neo_version}"
+    minecraft "net.neoforged:forge:${mc_version}-${neo_version}"
 
-    implementation "com.brandon3055.brandonscore:BrandonsCore:${mc_version}-${bcore_version}"
-    implementation "io.codechicken:CodeChickenLib:${mc_version}-${ccl_version}"
-    implementation "io.codechicken:EnderStorage:${mc_version}-${ender_storage_version}"
+    implementation fg.deobf("com.brandon3055.brandonscore:BrandonsCore:${mc_version}-${bcore_version}:universal")
+    implementation fg.deobf("io.codechicken:CodeChickenLib:${mc_version}-${ccl_version}:universal")
+    implementation fg.deobf("io.codechicken:EnderStorage:${mc_version}-${ender_storage_version}:universal")
 //    compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crt_version}")
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
-    implementation("mezz.jei:jei-${mc_version}-neoforge:${jei_version}") {
-        transitive false
-    }
+    compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}"))
+    compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}"))
+    runtimeOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}"))
 
-    implementation("top.theillusivec4.curios:curios-neoforge:${curios_version}") {
-        transitive false
-    }
+    compileOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api"))
+    runtimeOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}"))
 
-    implementation("cc.tweaked:cc-tweaked-${mc_version}-forge:${cct_version}") {
-        transitive false
-    }
-
-    // For Testing
-//    runtimeOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465")// core
-//    runtimeOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465:additions")// Mekanism: Additions
-//    runtimeOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465:generators")// Mekanism: Generators
-//    runtimeOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465:tools")// Mekanism: Tools
-    // Apotheosis Testing
-//    runtimeOnly fg.deobf("dev.shadowsoffire:Apotheosis:1.20.1-7.4.3")
-//    runtimeOnly fg.deobf("dev.shadowsoffire:ApothicAttributes:1.20.1-1.3.7")
-//    runtimeOnly fg.deobf("dev.shadowsoffire:Placebo:1.20.1-8.6.2")
+    compileOnly("cc.tweaked:cc-tweaked-${mc_version}-core-api:${cct_version}")
+    compileOnly(fg.deobf("cc.tweaked:cc-tweaked-${mc_version}-forge-api:${cct_version}"))
+    runtimeOnly(fg.deobf("cc.tweaked:cc-tweaked-${mc_version}-forge:${cct_version}"))
 }
 
 test {
@@ -110,7 +111,7 @@ processResources {
     inputs.property 'ccl_version', ccl_version
     inputs.property 'bcore_version', bcore_version
 
-    filesMatching('META-INF/neoforge.mods.toml') {
+    filesMatching('META-INF/mods.toml') {
         expand 'file': ['jarVersion': mod_version],
                 'mc_version': mc_version,
                 'neo_version': neo_version,
@@ -122,7 +123,7 @@ processResources {
     }
 }
 
-def publishingMetadata = project.layout.buildDirectory.file("libs/${base.archivesName.get()}-$version-publishing.json")
+def publishingMetadata = project.layout.buildDirectory.file("libs/$archivesBaseName-$version-publishing.json")
 def publishingMetadataTask = tasks.register("publishingMetadata") {
     outputs.file(publishingMetadata)
     doFirst {
@@ -131,8 +132,8 @@ def publishingMetadataTask = tasks.register("publishingMetadata") {
                         'displayName' : "Draconic Evolution ${version}",
                         'mcVersion'   : "${mc_version}",
                         'version'     : "${mod_version}",
-                        'classifier'  : null,
-                        'modLoader'   : 'neoforge',
+                        'classifier'  : 'universal',
+                        'modLoader'   : ['neoforge', 'forge'],
                         'curseforgeId': '223565',
                         'modrinthId'  : 'nBqivi8H',
                         'dependencies': [
@@ -161,13 +162,14 @@ def publishingMetadataTask = tasks.register("publishingMetadata") {
 }
 
 jar {
+    finalizedBy 'reobfJar'
     finalizedBy 'signJar'
-    archiveClassifier = ''
+    archiveClassifier = 'universal'
     manifest {
-        attributes 'Specification-Title': base.archivesName.get()
+        attributes 'Specification-Title': archivesBaseName
         attributes 'Specification-Vendor': 'brandon3055'
         attributes 'Specification-Version': "1"
-        attributes 'Implementation-Title': base.archivesName.get()
+        attributes 'Implementation-Title': archivesBaseName
         attributes 'Implementation-Vendor': 'brandon3055'
         attributes 'Implementation-Version': version
         attributes 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
@@ -178,6 +180,7 @@ jar {
 
 tasks.register("signJar") {
     dependsOn("jar")
+    dependsOn("reobfJar")
 
     doFirst {
         def args = [:]
@@ -219,7 +222,7 @@ publishing {
     publications {
         DraconicEvolution(MavenPublication) {
             groupId project.group
-            artifactId project.base.archivesName.get()
+            artifactId project.archivesBaseName
             version project.version
             artifact jar
             artifact sourcesJar
@@ -228,18 +231,18 @@ publishing {
                 classifier 'publishing'
             }
             pom {
-                name = base.archivesName.get()
-                description = base.archivesName.get()
-                url = "https://github.com/brandon3055/${base.archivesName.get()}"
+                name = archivesBaseName
+                description = archivesBaseName
+                url = "https://github.com/brandon3055/${archivesBaseName}"
                 scm {
-                    url = "https://github.com/brandon3055/${base.archivesName.get()}"
-                    connection = "scm:git:git://github.com/brandon3055/${base.archivesName.get()}.git"
-                    connection = "scm:git:git@github.com:brandon3055/${base.archivesName.get()}.git"
+                    url = "https://github.com/brandon3055/${archivesBaseName}"
+                    connection = "scm:git:git://github.com/brandon3055/${archivesBaseName}.git"
+                    connection = "scm:git:git@github.com:brandon3055/${archivesBaseName}.git"
                 }
 
                 issueManagement {
                     system = 'github'
-                    url = "https://github.com/brandon3055/${base.archivesName.get()}/issues"
+                    url = "https://github.com/brandon3055/${archivesBaseName}/issues"
                 }
                 licenses {
                     license {
@@ -274,4 +277,8 @@ signing {
         return
     }
     sign publishing.publications.DraconicEvolution
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
 }
