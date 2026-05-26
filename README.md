@@ -12,6 +12,8 @@ Draconic Evolution adds powerful new tools, Items, weapons and Armor. The premis
 This mod is licensed under the [**Don't Be a Jerk License**](https://github.com/Draconic-Inc/Draconic-Evolution/blob/HEAD/LICENSE.md) created by CoFH.
 I hereby grant permission to use this mod in any mod pack without the need to request permission from myself the owner (brandon3055).
 
+
+## REMIND
 This is a special version of Draconic Evolution for my modpack. Compared to the original version, the following changes have been made:  
 
 1. Adjusted the damage of the Chaos Guardian and the invincibility duration during the release of certain abilities.  
