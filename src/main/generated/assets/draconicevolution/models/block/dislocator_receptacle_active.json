@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "draconicevolution:block/dislocator_receptacle_active"
-  }
-}
