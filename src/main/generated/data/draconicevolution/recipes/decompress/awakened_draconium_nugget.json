@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/draconium_awakened"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "draconicevolution:awakened_draconium_nugget"
+  }
+}

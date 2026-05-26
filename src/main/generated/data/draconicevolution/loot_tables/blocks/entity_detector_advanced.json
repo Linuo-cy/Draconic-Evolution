@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "draconicevolution:entity_detector_advanced"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "draconicevolution:blocks/entity_detector_advanced"
+}

@@ -1,0 +1,43 @@
+{
+  "type": "draconicevolution:fusion_crafting",
+  "catalyst": {
+    "item": "draconicevolution:awakened_core"
+  },
+  "ingredients": [
+    {
+      "tag": "forge:ingots/draconium_awakened"
+    },
+    {
+      "item": "draconicevolution:draconic_pickaxe"
+    },
+    {
+      "tag": "forge:ingots/draconium_awakened"
+    },
+    {
+      "tag": "forge:ingots/draconium_awakened"
+    },
+    {
+      "item": "draconicevolution:draconic_sword"
+    },
+    {
+      "item": "draconicevolution:draconic_shovel"
+    },
+    {
+      "tag": "forge:ingots/draconium_awakened"
+    },
+    {
+      "item": "draconicevolution:draconic_energy_core"
+    },
+    {
+      "tag": "forge:ingots/draconium_awakened"
+    },
+    {
+      "tag": "forge:ingots/draconium_awakened"
+    }
+  ],
+  "result": {
+    "item": "draconicevolution:draconic_staff"
+  },
+  "tier": "DRACONIC",
+  "total_energy": 256000000
+}

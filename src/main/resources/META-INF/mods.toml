@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="[${lang_version},)"
+license="CoFH \"Don't Be a Jerk\" License"
+
+[[mods]]
+	modId="draconicevolution"
+	displayName="Draconic Evolution"
+	version="${file.jarVersion}"
+	authors="brandon3055"
+	description=''''''
+	updateJSONURL="https://version-check.covers1624.net/check/?mod=Draconic-Evolution&mc=${mc_version}"
+
+[[dependencies.draconicevolution]]
+	modId="forge"
+	mandatory=true
+	versionRange="[${neo_version},)"
+	ordering="NONE"
+	side="BOTH"
+[[dependencies.draconicevolution]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.draconicevolution]]
+    modId="computercraft"
+    mandatory=false
+    versionRange="[${cct_version},)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.draconicevolution]]
+	modId="codechickenlib"
+	mandatory=true
+	versionRange="${ccl_version}"
+	ordering="AFTER"
+	side="BOTH"
+[[dependencies.draconicevolution]]
+	modId="brandonscore"
+	mandatory=true
+	versionRange="[${bcore_version},)"
+	ordering="AFTER"
+	side="BOTH"
+
