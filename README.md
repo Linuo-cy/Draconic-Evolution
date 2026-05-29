@@ -22,3 +22,4 @@ Compared to the original version, the following changes have been made:
 3. Disabled the generation of overworld_draconium_ore.  
 4. Added some configs to toggle the modifications mentioned in point 1.  
 5. Hard-coded changes in the configs regarding the slot size of equipment modules and the effects of certain models.
+6. Increased the health and shield values of the Chaos Guardian.If you want to play with this version,don't be surprised,that's normal.
