@@ -9,13 +9,6 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-    withSourcesJar()
-}
-
 group = "com.brandon3055.draconicevolution"
 archivesBaseName = "Draconic-Evolution"
 
@@ -55,12 +48,10 @@ configurations {
 }
 
 repositories {
-    // 国内镜像（优先使用）
     maven { url = 'https://maven.aliyun.com/repository/public' }
     maven { url = 'https://maven.aliyun.com/repository/forge' }
     maven { url = 'https://maven.aliyun.com/repository/central' }
 
-    // 原有仓库（保留作为备选）
     mavenLocal()
     maven { url = "https://maven.covers1624.net/" }
     maven { url = "https://dvs1.progwml6.com/files/maven" }
@@ -225,7 +216,6 @@ publishing {
             artifactId project.archivesBaseName
             version project.version
             artifact jar
-            artifact sourcesJar
             artifact(publishingMetadata) {
                 builtBy publishingMetadataTask
                 classifier 'publishing'
@@ -233,17 +223,13 @@ publishing {
             pom {
                 name = archivesBaseName
                 description = archivesBaseName
-                url = "https://github.com/brandon3055/${archivesBaseName}"
+                url = "https://github.com/Linuo-cy/${archivesBaseName}"
                 scm {
-                    url = "https://github.com/brandon3055/${archivesBaseName}"
-                    connection = "scm:git:git://github.com/brandon3055/${archivesBaseName}.git"
-                    connection = "scm:git:git@github.com:brandon3055/${archivesBaseName}.git"
+                    url = "https://github.com/Linuo-cy/${archivesBaseName}"
+                    connection = "scm:git:git://github.com/Linuo-cy/${archivesBaseName}.git"
+                    connection = "scm:git:git@github.com:Linuo-cy/${archivesBaseName}.git"
                 }
 
-                issueManagement {
-                    system = 'github'
-                    url = "https://github.com/brandon3055/${archivesBaseName}/issues"
-                }
                 licenses {
                     license {
                         name = "CoFH \"Don't Be a Jerk\" License"
